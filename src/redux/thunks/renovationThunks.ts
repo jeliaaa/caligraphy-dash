@@ -1,0 +1,14 @@
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import { fetchRenovations } from "../../api/renovations";
+import { Renovation } from "../../types/api";
+
+export const fetchRenovationsThunk = createAsyncThunk<Renovation[]>(
+    'renovation/fetchRenovations',
+    async (_, { rejectWithValue }) => {
+        try {
+            return await fetchRenovations();
+        } catch (error) {
+            return rejectWithValue(error);
+        }
+    }
+);

@@ -1,13 +1,14 @@
 import { useAuth } from "../context/useAuth";
 import { useState } from "react";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Input from "../ReusableComponents/Input";
 
 const LoginForm = () => {
     const { control, handleSubmit, formState: { errors } } = useForm<ILoginForm>();
     const [loading, setLoading] = useState(false);
     const { login, isAuthenticated } = useAuth();
+    const nav = useNavigate();
     interface ILoginForm {
         email: string;
         password: string;
@@ -19,6 +20,7 @@ const LoginForm = () => {
         } catch (error) {
             alert(error instanceof Error ? error.message : 'Login failed. Please try again.');
         } finally {
+            nav("/app")
             setLoading(false);
         }
     };

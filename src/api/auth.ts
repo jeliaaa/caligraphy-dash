@@ -1,8 +1,8 @@
 import { axiosV3 } from "../utils/axios";
 
 
-export const supervisorLogin = async (login: string, password: string) => {
-    const response = await axiosV3.post(`/supervisor/login`, { login, password });
+export const supervisorLogin = async (email: string, password: string) => {
+    const response = await axiosV3.post(`/supervisor/login`, { email, password });
     return response.data;
 };
 

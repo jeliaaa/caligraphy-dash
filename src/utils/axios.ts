@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 // Factory function to create Axios instances for different versions
 const createAxiosInstance = (version: string) => {
     const instance = axios.create({
-        baseURL: `${import.meta.env.REACT_APP_URL}/en/api/${version}`, // Include version dynamically
+        baseURL: `${import.meta.env.VITE_URL}/en/api/${version}`, // Include version dynamically
         withCredentials: true,
         headers: {
             "Content-Type": "application/json",
@@ -21,7 +21,7 @@ const createAxiosInstance = (version: string) => {
             }
 
             // Update baseURL dynamically based on language and version
-            config.baseURL = `${import.meta.env.REACT_APP_URL}/en/api/${version}`;
+            config.baseURL = `${import.meta.env.VITE_URL}/en/api/${version}`;
 
             return config;
         },
