@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import authReducer from "./slices/authReducer"
 import renovationReducer from "./slices/renovationReducer"
+import stagesReducer from "./slices/stagesReducer"
 const store = configureStore({
     reducer: {
         auth: authReducer,
-        renovation: renovationReducer
+        renovation: renovationReducer,
+        stage: stagesReducer
     },
 });
 

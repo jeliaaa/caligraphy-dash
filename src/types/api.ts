@@ -29,3 +29,10 @@ export type Renovation = {
     end_date: string;   // ISO date string
     progress: number;
 };
+
+export type Stage = {
+    id: number;
+    images: string[];
+    name: string;
+    is_completed: Date;
+}

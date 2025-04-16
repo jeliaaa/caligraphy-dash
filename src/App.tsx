@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom"
 import LoginForm from "./pages/SignIn"
 import Main from "./pages/Main"
+import RenovationSingle from "./pages/RenovationSingle"
 
 function App() {
   return (
@@ -8,7 +9,7 @@ function App() {
       <Routes>
         <Route index path="/app" element={<Main />} />
         <Route path="/login" element={<LoginForm />} />
-        <Route path="/renovation/:track" element={<LoginForm />} />
+        <Route path="/renovation/:track" element={<RenovationSingle />} />
       </Routes>
     </div>
   )
