@@ -51,7 +51,7 @@ const Main = () => {
         </div>
       </div>
       <div className="w-full p-7">
-        <div className="flex flex-wrap">
+        <div className="flex flex-wrap gap-x-5">
           {data.map((renovation) => (
             <Link to={`/renovation/${renovation.track}`} key={renovation.id} className="w-[400px] rounded-md h-fit flex flex-col">
               {/* <img src={karkasi} alt="..." className="w-full rounded-t-md" /> */}

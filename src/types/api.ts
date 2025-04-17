@@ -32,7 +32,11 @@ export type Renovation = {
 
 export type Stage = {
     id: number;
-    images: string[];
+    images: Image[];
     name: string;
     is_completed: Date;
+}
+
+type Image = {
+    url: string
 }
