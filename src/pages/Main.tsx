@@ -65,7 +65,7 @@ const Main = () => {
                 <span>მომხმარებელი: {renovation.customer.firstname} {renovation.customer.lastname}</span>
                 <span className="text-red-400">დაწყების თარიღი: {renovation.start_date}</span>
                 <span className="text-green-400">ბოლო ვადა: {renovation.end_date}</span>
-                <span>პროგგრესი: {renovation.progress} %</span>
+                <span>პროგრესი: {renovation.progress} %</span>
                 <div className="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
                   <div
                     className="bg-green-500 h-full transition-all duration-300"
