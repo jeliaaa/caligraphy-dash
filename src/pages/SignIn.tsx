@@ -1,5 +1,5 @@
 import { useAuth } from "../context/useAuth";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import Input from "../ReusableComponents/Input";
@@ -13,6 +13,13 @@ const LoginForm = () => {
         email: string;
         password: string;
     }
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            nav('/app')
+        }
+    })
+
     const onSubmit: SubmitHandler<ILoginForm> = async (data) => {
         try {
             setLoading(true);
@@ -20,18 +27,16 @@ const LoginForm = () => {
         } catch (error) {
             alert(error instanceof Error ? error.message : 'Login failed. Please try again.');
         } finally {
-            nav("/app")
-            setLoading(false);
+            if (isAuthenticated) {
+                nav("/app")
+                setLoading(false);
+            }
         }
     };
 
-    if (isAuthenticated) {
-        console.log('a');
-    }
-
     return (
         <div className="w-full text-dark-color min-h-screen flex items-center justify-center">
-            <div className="flex flex-col w-md">
+            <div className="flex flex-col lg:w-md w-[300px]">
                 <form className='text-dark-color space-y-4 my-4 flex flex-col' onSubmit={handleSubmit(onSubmit)}>
                     <Controller
                         name="email"
@@ -67,9 +72,12 @@ const LoginForm = () => {
                 </div>} */}
 
                     <div>
-                        <button className="bg-main-color cursor-pointer text-grayish px-5 py-3 w-full" type='submit'>
-                            {loading && <span className="loading loading-spinner"></span>}
-                            შესვლა
+                        <button className="bg-main-color flex items-center justify-center gap-x-2 cursor-pointer text-grayish px-5 py-3 w-full" type='submit'>
+
+                            <span>შესვლა</span>
+                            {loading &&
+                                <div className="w-5 h-5 border-4 border-grayish border-t-transparent rounded-full animate-spin"></div>
+                            }
                         </button>
                     </div>
                 </form>

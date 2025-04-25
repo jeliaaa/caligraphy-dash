@@ -4,13 +4,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store";
 import { fetchRenovationsThunk } from "../redux/thunks/renovationThunks";
 // import karkasi from "../assets/karkasi.jpeg"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Main = () => {
-  const { user } = useAuth();
+  const { user, isAuthenticated } = useAuth();
   const [time, setTime] = useState(getCurrentTime());
   const dispatch = useDispatch<AppDispatch>()
   const { data, status } = useSelector((state: RootState) => state.renovation);
+  const nav = useNavigate();
   useEffect(() => {
     dispatch(fetchRenovationsThunk());
   }, [dispatch])
@@ -26,6 +27,9 @@ const Main = () => {
   }
 
   useEffect(() => {
+    if (!isAuthenticated) {
+      nav('/login')
+    }
     const interval = setInterval(() => {
       setTime(getCurrentTime());
     }, 1000);
@@ -33,11 +37,11 @@ const Main = () => {
     return () => clearInterval(interval);
   }, []);
   if (status === 'loading') {
-    return <p>Loading renovation...</p>;
+    return <p>პროექტების ჩატვირთვა...</p>;
   }
 
   if (status === 'failed') {
-    return <p>Failed to load renovation.</p>;
+    return <p>პროექტები არ მოიძებნა.</p>;
   }
 
 
@@ -56,17 +60,18 @@ const Main = () => {
             <Link to={`/renovation/${renovation.track}`} key={renovation.id} className="w-[400px] rounded-md h-fit flex flex-col">
               {/* <img src={karkasi} alt="..." className="w-full rounded-t-md" /> */}
               <div className="w-full flex flex-col rounded-b-md gap-y-3 p-5 text-2xl items-center shadow-2xl">
-                <span className="font-bold">{renovation.track}</span>
-                <span>{renovation.address}</span>
-                <span>{renovation.customer.firstname} {renovation.customer.lastname}</span>
-                <span className="text-red-400">{renovation.start_date}</span>
-                <span className="text-green-400">{renovation.end_date}</span>
-                <span>{renovation.progress} %</span>
+                <span className="font-bold">პროექტის კოდი: {renovation.track}</span>
+                <span>მისამართი: {renovation.address}</span>
+                <span>მომხმარებელი: {renovation.customer.firstname} {renovation.customer.lastname}</span>
+                <span className="text-red-400">დაწყების თარიღი: {renovation.start_date}</span>
+                <span className="text-green-400">ბოლო ვადა: {renovation.end_date}</span>
+                <span>პროგგრესი: {renovation.progress} %</span>
                 <div className="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
                   <div
                     className="bg-green-500 h-full transition-all duration-300"
                     style={{ width: `${renovation.progress}%` }}
-                  />
+                  /> 
+
                 </div>
               </div>
             </Link>

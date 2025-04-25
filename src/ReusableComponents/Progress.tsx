@@ -15,6 +15,7 @@ const Progress: React.FC<ProgressProps> = ({ serviceId }) => {
     const { completeStatus } = useSelector((state: RootState) => state.stage);
     const [modalData, setModalData] = useState<Stage | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    // const [responseLoading, setResponseLoading] = useState(false);
 
     const openModal = useCallback(() => {
         setIsModalOpen(true);
@@ -55,18 +56,17 @@ const Progress: React.FC<ProgressProps> = ({ serviceId }) => {
         if (modalData?.id && formData) {
             dispatch(completeStageThunk({ stageId: modalData.id, formData }));
         }
+        // You can now dispatch this
+        // dispatch(uploadImages(serviceId, formData));
+    }
+    useEffect(() => {
         if (completeStatus === 'succeeded') {
-            alert('success')
             setModalData(null)
             setSelectedImages([])
             setPreviewUrls([])
+            window.location.reload();
         }
-
-        // You can now dispatch this
-        // dispatch(uploadImages(serviceId, formData));
-        console.log("Prepared FormData:", formData);
-    }
-
+    }, [completeStatus])
     const removePhoto = (index: number) => {
         const selectedImageName = selectedImages[index]?.name
         const newImages = Array.from(selectedImages).filter(image => image.name !== selectedImageName)
@@ -74,13 +74,11 @@ const Progress: React.FC<ProgressProps> = ({ serviceId }) => {
         setPreviewUrls(newImages.map((file) => URL.createObjectURL(file)));
     }
 
-    console.log(modalData);
-
     const stageCount = data.length;
 
     return (
         <div className="w-full flex flex-col gap-1 justify-start items-start">
-            {isLoading && <h2 className="self-center">Loading...</h2>}
+            {isLoading && <h2 className="self-center">ჩატვირთვა...</h2>}
             <div
                 className={clsx(
                     "grid w-full py-0.5 grid-cols-4 md:grid-cols-6 lg:grid-cols-8"
@@ -121,7 +119,7 @@ const Progress: React.FC<ProgressProps> = ({ serviceId }) => {
                                     )}
                                 >
                                     {stage.name} (
-                                    {stage.is_completed ? "Completed" : "Not Completed"})
+                                    {stage.is_completed ? "შესრულებული" : "დაუსრულებელი"})
                                 </div>
                                 <div
                                     className={clsx(
@@ -150,7 +148,8 @@ const Progress: React.FC<ProgressProps> = ({ serviceId }) => {
                     {/* Modal content */}
                     <div className="bg-white absolute p-5 z-40 w-screen h-screen md:w-4/5 md:h-4/5 flex flex-col">
                         <h2 className="text-lg font-semibold mb-4">{modalData.name}</h2>
-                        <p>Status: {modalData.is_completed ? "Completed" : "Not Completed"}</p>
+                        <button onClick={() => setModalData(null)} className="bg-main-color w-10 h-10 font-bold text-2xl text-grayish rounded-lg flex items-center justify-center cursor-pointer absolute right-3">X</button>
+                        <p>სტატუსი: {modalData.is_completed ? "შესრულებული" : "დაუსრულებელი"}</p>
 
                         {/* Image Upload Input */}
                         <div className="mt-4">
@@ -205,7 +204,12 @@ const Progress: React.FC<ProgressProps> = ({ serviceId }) => {
                             ))}
                         </div>
 
-                        <button className="bg-green-500 mt-10 text-white p-5 text-2xl font-bold cursor-pointer" disabled={selectedImages.length === 0} onClick={() => uploadImages()}>ატვირთვა</button>
+                        <button className="bg-green-500 mt-10 flex justify-center items-center gap-x-2 text-white p-5 text-2xl font-bold cursor-pointer" disabled={selectedImages.length === 0} onClick={() => uploadImages()}>
+                            <span>ატვირთვა</span>
+                            {completeStatus === 'loading' &&
+                                <div className="w-5 h-5 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
+                            }
+                        </button>
                     </div>
                 </div>
             )

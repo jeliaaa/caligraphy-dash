@@ -47,20 +47,20 @@ const RenovationSingle = () => {
                     <span className="text-lg m-0">back</span>
                 </Link>
                 <h1 className="text-center font-bold mt-2 bg-white px-10 text-3xl py-5 rounded-md shadow-md">
-                    myProject {singleData?.id !== 0 && `: ${singleData?.id}`}
+                    პროექტი {singleData?.id !== 0 && `: ${singleData?.track}`}
                 </h1>
             </div>
 
             <div className="mt-10 p-5 bg-white rounded-2xl shadow-lg w-full">
-                <h2 className="text-2xl font-bold mb-4">{singleData?.track}</h2>
+                <h2 className="text-2xl font-bold mb-4">პროექტის კოდი: {singleData?.track}</h2>
                 <div className="flex flex-col gap-4">
                     <div className="flex flex-col gap-2">
                         <div className="w-full flex flex-col">
-                            <p>address : {singleData?.address}</p>
-                            <p>supervisor : {singleData?.supervisor?.firstname} {singleData?.supervisor?.lastname}</p>
-                            <p>services : {singleData?.service?.name}</p>
+                            <p>მისამართი : {singleData?.address}</p>
+                            <p>ზედამხედველი : {singleData?.supervisor?.firstname} {singleData?.supervisor?.lastname}</p>
+                            <p>სერვისები : {singleData?.service?.name}</p>
                         </div>
-                        <span className="font-bold">progress:</span>
+                        <span className="font-bold">პროგრესი:</span>
                         <div className="w-full flex flex-col gap-2 justify-start items-start">
                             <div className="flex justify-between w-full">
                                 <p className="font-bold text-main-color">{singleData?.progress}%</p>
