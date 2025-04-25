@@ -27,7 +27,6 @@ const LoginForm = () => {
 
     if (isAuthenticated) {
         console.log('a');
-
     }
 
     return (
@@ -46,7 +45,7 @@ const LoginForm = () => {
                             />
                         )}
                     />
-                    {errors.email && <span className="text-red-700 text-sm mt-2">importantField</span>}
+                    {errors.email && <span className="text-red-700 text-sm mt-2">მომხმარებელი არასწორია</span>}
 
                     <Controller
                         name="password"
@@ -61,7 +60,7 @@ const LoginForm = () => {
                             />
                         )}
                     />
-                    {errors.password && <span className="text-red-700 text-sm mt-2">importantField</span>}
+                    {errors.password && <span className="text-red-700 text-sm mt-2">პაროლი არასწორია</span>}
 
                     {/* {!forAdmin && <div className="flex items-center justify-end">
                     <Link to='/participant/reset-password' className="self-end hover:text-blue-800 hover:underline">{t("forgotPassword")}?</Link>
@@ -70,7 +69,7 @@ const LoginForm = () => {
                     <div>
                         <button className="bg-main-color cursor-pointer text-grayish px-5 py-3 w-full" type='submit'>
                             {loading && <span className="loading loading-spinner"></span>}
-                            login
+                            შესვლა
                         </button>
                     </div>
                 </form>
