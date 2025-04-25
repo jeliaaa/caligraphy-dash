@@ -35,7 +35,7 @@ const Main = () => {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [isAuthenticated, nav]);
   if (status === 'loading') {
     return <p>პროექტების ჩატვირთვა...</p>;
   }
